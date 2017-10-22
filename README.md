@@ -24,6 +24,9 @@ A small library providing internationalization like ngx-translate for Node. (Use
 
 - `translate(key: String, data: Array)` : Translate string with selected language. Replace Translated string with value if data is defined.
 
+
+**Path for language file : ApplicationPath/lang/{{lang}}.json**
+
 ## Example
 
 ```JavaScript
