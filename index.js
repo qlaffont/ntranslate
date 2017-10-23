@@ -32,12 +32,16 @@ function getObjectValueFromString(target, key){
 
 //Set Default Language
 ntranslate.setDefaultLang = (lang) => {
-  if(fs.existsSync(path.join(process.cwd(), "lang", lang+".json"))){
+  if(!this.path){
+    this.path = path.join(process.cwd(), "lang");
+  }
+
+  if(fs.existsSync(path.join(this.path, lang+".json"))){
     this.defaultLang = lang;
     this.SelectedLang = this.defaultLang;
-    this.translatefile = JSON.parse(fs.readFileSync(path.join(process.cwd(), "lang", lang+".json")));
+    this.translatefile = JSON.parse(fs.readFileSync(path.join(this.path, lang+".json")));
   }else{
-    console.error("Error : Please create a translation file in " + path.join(process.cwd(), "lang", lang+".json"));
+    console.error("Error : Please create a translation file in " + path.join(this.path, lang+".json"));
     process.exit();
   }
 };
@@ -47,7 +51,7 @@ ntranslate.use = (lang) => {
   if(this.defaultLang){
     if(fs.existsSync(path.join(process.cwd(), "lang", lang+".json"))){
       this.SelectedLang = lang;
-      this.translatefile = JSON.parse(fs.readFileSync(path.join(process.cwd(), "lang", lang+".json")));
+      this.translatefile = JSON.parse(fs.readFileSync(path.join(this.path, lang+".json")));
     }
   }else{
     console.error("Error : Please init Default Language. Ex: ntranslate.setDefaultLang('en');");
@@ -63,6 +67,10 @@ ntranslate.getDefaultLang = () => {
 //Get Selected Language
 ntranslate.getSelectedLang = () => {
   return this.getSelectedLang;
+};
+
+ntranslate.getPath = () => {
+  return this.path;
 };
 
 //Translate String and replace data if needed
@@ -81,6 +89,11 @@ ntranslate.translate = (key, data) => {
     console.error("Error : Please init Default Language. Ex: ntranslate.setDefaultLang('en');");
     process.exit();
   }
+};
+
+//Change Language Path
+ntranslate.changePath = (pathparam) => {
+  this.path = pathparam;
 };
 
 module.exports = ntranslate;
