@@ -49,7 +49,7 @@ ntranslate.setDefaultLang = (lang) => {
 //Use Language
 ntranslate.use = (lang) => {
   if(this.defaultLang){
-    if(fs.existsSync(path.join(process.cwd(), "lang", lang+".json"))){
+    if(fs.existsSync(path.join(this.path, lang+".json"))){
       this.SelectedLang = lang;
       this.translatefile = JSON.parse(fs.readFileSync(path.join(this.path, lang+".json")));
     }

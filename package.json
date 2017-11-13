@@ -1,6 +1,6 @@
 {
   "name": "ntranslate",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Internationalization Library for Node",
   "main": "index.js",
   "scripts": {
