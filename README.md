@@ -18,11 +18,15 @@ A small library providing internationalization like ngx-translate for Node. (Use
 
 - `use(lang: String)` : Define selected language. If selected language is not available, it will use the default language.
 
+- `returnFile(lang: String)` : Define selected language. If selected language is not available, it will use the default language. Return JSON File Content.
+
 - `getDefaultLang()` : Get default language.
 
 - `getSelectedLang()` : Get selected language.
 
 - `translate(key: String, data: Array)` : Translate string with selected language. Replace Translated string with value if data is defined.
+
+- `translateParam(translateParam: Object(JSON), key: String, data: Array)` : Translate string with selected language. Replace Translated string with value if data is defined.
 
 - `changePath(path: String)` : Change languag file path. Default: `ApplicationPath/lang/` *Recommandation: Use path.join() to be compatible with Linux and Windows*
 

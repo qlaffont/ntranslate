@@ -59,6 +59,19 @@ ntranslate.use = (lang) => {
   }
 };
 
+ntranslate.returnFile = (lang) => {
+  if(this.defaultLang){
+    if(fs.existsSync(path.join(this.path, lang+".json"))){
+      this.SelectedLang = lang;
+      this.translatefile = JSON.parse(fs.readFileSync(path.join(this.path, lang+".json")));
+      return this.translatefile;
+    }
+  }else{
+    console.error("Error : Please init Default Language. Ex: ntranslate.setDefaultLang('en');");
+    process.exit();
+  }
+}
+
 //Get Default Language
 ntranslate.getDefaultLang = () => {
   return this.defaultLang;
@@ -77,6 +90,24 @@ ntranslate.getPath = () => {
 ntranslate.translate = (key, data) => {
   if(this.translatefile){
     let translatedtext = getObjectValueFromString(this.translatefile, key);
+
+    if (data && typeof data === 'object' && translatedtext) {
+      for (var property in data) {
+        translatedtext = translatedtext.split("{{" + property + "}}").join(data[property]);
+      }
+    }
+
+    return translatedtext;
+  }else{
+    console.error("Error : Please init Default Language. Ex: ntranslate.setDefaultLang('en');");
+    process.exit();
+  }
+};
+
+//Translate String and replace data if needed
+ntranslate.translateParam = (translatefileparam, key, data) => {
+  if(translatefileparam){
+    let translatedtext = getObjectValueFromString(translatefileparam, key);
 
     if (data && typeof data === 'object' && translatedtext) {
       for (var property in data) {
